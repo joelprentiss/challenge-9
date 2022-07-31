@@ -42,12 +42,24 @@ inquirer
 // TODO: Create a function to write README file
 
 function writeMarkDown(fileName, data) {
-      const data = fs.writeToFile(answers);
-    const fileName = fs.writeFileSync(`./README/${answers.projectTitle}.md`);
+    data = fs.writeToFile(answers);
+    fileName = fs.writeFileSync(`./README/${answers.projectTitle}.md`);
 }
 
+const generateMD =({projectTitle, projectDescription, projectInstall,projectInst,projectCollab})=>
+`#${projectTitle}
+##${projectDescription}
+##${projectInstall}
+##${projectInst}
+##${projectCollab}`;
+
 // TODO: Create a function to initialize app
-function init() {}
+const init = () =>{
+promptUser()
+.then ((answers)=> fs.writeFileSync('README.md', generateMD(answers)))
+.then(()=> console.log('Succesfully generated README.md'))
+.catch((err)=>console.error(err));
+}
 
 // Function call to initialize app
 init();
